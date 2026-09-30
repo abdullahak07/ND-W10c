@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>COMP6013 Week 10 · Cloud Security Atlas</title>
+<meta name="theme-color" content="#0e1830">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="progress"></div>
+<header class="topbar">
+  <a class="brand" href="#top"><span class="mark">W10</span><span><b>COMP6013</b><small>Cloud Security</small></span></a>
+  <nav>
+    <a href="#basics">Cloud</a><a href="#services">Services</a><a href="#deploy">Deployment</a><a href="#actors">Actors</a><a href="#threats">Threats</a><a href="#secaas">SecaaS</a><a href="#openstack">OpenStack</a>
+  </nav>
+  <button class="top-action" data-jump="#final">Final Check</button>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="hero-copy">
+    <div class="eyebrow">WEEK 10 · NETWORK SECURITY & CRYPTOGRAPHY</div>
+    <h1>CLOUD SECURITY<br><span>IS A SHARED JOB.</span></h1>
+    <p>Learn how cloud computing is built, who controls what, where risk moves, and how to protect identity, data, APIs, availability and shared infrastructure.</p>
+    <div class="hero-actions"><button class="btn primary" data-jump="#basics">Enter the atlas</button><button class="btn secondary" id="flipAll">Flip all detail cards</button></div>
+    <div class="hero-facts">
+      <article><b>5</b><span>essential cloud characteristics</span></article>
+      <article><b>3</b><span>service models</span></article>
+      <article><b>4</b><span>deployment models</span></article>
+      <article><b>12</b><span>cloud-specific threats</span></article>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="orbit-card">
+      <div class="orbit-label">CLOUD CONTROL MAP</div>
+      <div class="orbit core">DATA</div>
+      <div class="orbit ring ring1"><span>IDENTITY</span><span>API</span></div>
+      <div class="orbit ring ring2"><span>NETWORK</span><span>VM</span><span>STORAGE</span></div>
+      <div class="orbit ring ring3"><span>CSP</span><span>CSC</span><span>AUDITOR</span><span>BROKER</span></div>
+      <div class="visual-note">The cloud changes <b>who controls each layer</b> — not your accountability for security.</div>
+    </div>
+  </div>
+</section>
+
+<section class="zone" id="basics">
+  <div class="zone-head"><div><span class="zone-no">01</span><div class="eyebrow">CLOUD COMPUTING</div><h2>What makes a cloud a cloud?</h2></div><p>NIST describes cloud computing as on-demand network access to a shared pool of configurable resources that can be rapidly provisioned and released with minimal management effort.</p></div>
+  <div class="five-grid">
+    <article><i>01</i><b>Broad network access</b><span>Use services over standard networks from many device types.</span></article>
+    <article><i>02</i><b>Rapid elasticity</b><span>Scale resources up or down as demand changes.</span></article>
+    <article><i>03</i><b>Measured service</b><span>Usage is metered, monitored and reported.</span></article>
+    <article><i>04</i><b>On-demand self-service</b><span>Provision resources without waiting for provider staff.</span></article>
+    <article><i>05</i><b>Resource pooling</b><span>Shared infrastructure serves many consumers dynamically.</span></article>
+  </div>
+  <div class="analogy"><b>Easy example:</b><span>Cloud is like electricity: you use what you need, when you need it, without owning the whole power station.</span></div>
+  <div class="flip-grid">
+    <button class="flip"><div class="flip-inner"><div class="face front"><small>FLIP 01</small><h3>Rapid elasticity</h3><p>Why is it useful?</p><em>↻</em></div><div class="face back"><h3>Rapid elasticity</h3><ul><li>Add many server resources during a busy task.</li><li>Release them when the task ends.</li><li>Capacity appears flexible to the consumer.</li><li>Supports workloads with changing demand.</li></ul></div></div></button>
+    <button class="flip"><div class="flip-inner"><div class="face front"><small>FLIP 02</small><h3>Resource pooling</h3><p>What does multi-tenancy mean?</p><em>↻</em></div><div class="face back"><h3>Resource pooling</h3><ul><li>Physical and virtual resources are shared.</li><li>Resources are assigned and reassigned dynamically.</li><li>Customers may not know the exact physical location.</li><li>Examples include storage, processing, memory, bandwidth and VMs.</li></ul></div></div></button>
+    <button class="flip"><div class="flip-inner"><div class="face front"><small>FLIP 03</small><h3>Measured service</h3><p>Why meter cloud use?</p><em>↻</em></div><div class="face back"><h3>Measured service</h3><ul><li>Usage can be measured at storage, CPU, bandwidth or account level.</li><li>Provider and consumer both gain visibility.</li><li>Supports pay-per-use and capacity planning.</li><li>Resources can be controlled and optimised.</li></ul></div></div></button>
+  </div>
+  <div class="quiz" data-answer="2"><b>Quick check</b><p>A company automatically adds servers for a flash sale, then removes them afterward. Which cloud characteristic is this?</p><div><button>Resource pooling</button><button>Measured service</button><button>Rapid elasticity</button></div><small></small></div>
+</section>
+
+<section class="zone alt" id="services">
+  <div class="zone-head"><div><span class="zone-no">02</span><div class="eyebrow">SERVICE MODELS</div><h2>SaaS, PaaS and IaaS = different control boundaries.</h2></div><p>The deeper you move from SaaS toward IaaS, the more control the customer gains — and the more configuration and security responsibility the customer keeps.</p></div>
+  <div class="service-stack">
+    <article class="saas"><span>SaaS</span><b>Use the application</b><p>Provider runs the application and cloud infrastructure. Customer mainly uses the service through a browser or client.</p><small>Examples in the lecture: Gmail, Microsoft 365, Salesforce, WebEx.</small></article>
+    <article class="paas"><span>PaaS</span><b>Build on the platform</b><p>Provider supplies runtimes, development tools and platform services so customer applications can run.</p><small>Think: “operating system in the cloud.”</small></article>
+    <article class="iaas"><span>IaaS</span><b>Control the virtual machines</b><p>Customer controls operating systems and deployed applications while the provider manages the underlying infrastructure.</p><small>Examples: EC2, Azure, Google Compute Engine.</small></article>
+  </div>
+  <div class="responsibility-lab game">
+    <div class="game-head"><div><span>GAME 1</span><h3>Who controls more?</h3></div><p>Move from SaaS to IaaS and watch customer responsibility grow.</p></div>
+    <div class="game-body">
+      <input id="serviceRange" type="range" min="0" max="2" value="0" step="1">
+      <div class="responsibility-meter"><div><span>PROVIDER</span><b id="providerPct">85%</b></div><div><span>CUSTOMER</span><b id="customerPct">15%</b></div></div>
+      <div class="service-readout" id="serviceReadout"></div>
+    </div>
+  </div>
+  <div class="flip-grid four">
+    <button class="flip"><div class="flip-inner"><div class="face front"><small>SAAS</small><h3>Why choose it?</h3><p>Convenience</p><em>↻</em></div><div class="face back"><h3>SaaS detail</h3><ul><li>No local installation burden.</li><li>Provider handles maintenance, upgrades and patches.</li><li>Users access the application through a simple interface.</li><li>Provider often adds backup and sharing features.</li></ul></div></div></button>
+    <button class="flip"><div class="flip-inner"><div class="face front"><small>PAAS</small><h3>Why choose it?</h3><p>Development speed</p><em>↻</em></div><div class="face back"><h3>PaaS detail</h3><ul><li>Customer deploys created or acquired applications.</li><li>Provider supplies building blocks, runtimes and language tools.</li><li>Useful when building tailored applications.</li><li>Pay for computing resources only when needed.</li></ul></div></div></button>
+    <button class="flip"><div class="flip-inner"><div class="face front"><small>IAAS</small><h3>Why choose it?</h3><p>Maximum flexibility</p><em>↻</em></div><div class="face back"><h3>IaaS detail</h3><ul><li>Virtual machines, virtual hardware and operating systems.</li><li>Customer chooses OS and applications.</li><li>May have limited control of networking such as host firewalls.</li><li>Can be self-provisioned through GUI or API.</li></ul></div></div></button>
+    <button class="flip"><div class="flip-inner"><div class="face front"><small>MEMORY</small><h3>One-line trick</h3><p>Software → Platform → Infrastructure</p><em>↻</em></div><div class="face back"><h3>Remember it</h3><ul><li>SaaS: “Just use it.”</li><li>PaaS: “Build on it.”</li><li>IaaS: “Run your systems on it.”</li><li>More customer control usually means more customer security work.</li></ul></div></div></button>
+  </div>
+  <div class="quiz" data-answer="1"><b>Quick check</b><p>Your developers want a managed runtime and deployment platform but do not want to manage the underlying servers. Which model fits best?</p><div><button>IaaS</button><button>PaaS</button><button>SaaS</button></div><small></small></div>
+</section>
+
+<section class="zone" id="deploy">
+  <div class="zone-head"><div><span class="zone-no">03</span><div class="eyebrow">DEPLOYMENT MODELS</div><h2>Where does the cloud live, and who shares it?</h2></div><p>Public, private, community and hybrid clouds trade cost, control, scale, performance and security differently.</p></div>
+  <div class="deploy-grid">
+    <article><span>PUBLIC</span><b>Shared provider infrastructure</b><p>Low cost and high scalability, but security and compliance concerns require careful management.</p></article>
+    <article><span>PRIVATE</span><b>Dedicated to one organisation</b><p>Tighter control over data location and security; higher cost and management effort.</p></article>
+    <article><span>COMMUNITY</span><b>Shared by similar organisations</b><p>Restricted access for organisations with common requirements, such as regulated sectors.</p></article>
+    <article><span>HYBRID</span><b>Two or more clouds connected</b><p>Keep sensitive workloads private while using public-cloud benefits for less sensitive workloads.</p></article>
+  </div>
+  <div class="game">
+    <div class="game-head"><div><span>GAME 2</span><h3>Choose the deployment</h3></div><p>Pick the best model for each scenario.</p></div>
+    <div class="game-body"><div class="scenario" id="deployScenario"></div><div class="choices"><button data-deploy="PUBLIC">Public</button><button data-deploy="PRIVATE">Private</button><button data-deploy="COMMUNITY">Community</button><button data-deploy="HYBRID">Hybrid</button></div><div class="feedback" id="deployFeedback"></div></div>
+  </div>
+  <div class="comparison-table"><div class="row head"><b>Model</b><b>Scale</b><b>Security</b><b>Cost</b></div><div class="row"><b>Private</b><span>Limited</span><span>Most secure option</span><span>High</span></div><div class="row"><b>Community</b><span>Limited</span><span>Very secure</span><span>Medium</span></div><div class="row"><b>Public</b><span>Very high</span><span>Moderately secure</span><span>Low</span></div><div class="row"><b>Hybrid</b><span>Very high</span><span>Very secure</span><span>Medium</span></div></div>
+  <div class="flip-grid">
+    <button class="flip"><div class="flip-inner"><div class="face front"><small>PUBLIC</small><h3>Main trade-off</h3><p>Cost vs control</p><em>↻</em></div><div class="face back"><h3>Public cloud</h3><ul><li>Provider owns the shared infrastructure.</li><li>Major components sit outside the enterprise firewall.</li><li>Resources are segregated logically for customers.</li><li>Major advantage: cost. Principal concern: security.</li></ul></div></div></button>
+    <button class="flip"><div class="flip-inner"><div class="face front"><small>PRIVATE</small><h3>Main trade-off</h3><p>Control vs cost</p><em>↻</em></div><div class="face back"><h3>Private cloud</h3><ul><li>Dedicated to one organisation.</li><li>Can be on-premises or off-premises.</li><li>May be managed internally or by a third party.</li><li>Key motivation: security and tighter control over data location.</li></ul></div></div></button>
+    <button class="flip"><div class="flip-inner"><div class="face front"><small>HYBRID</small><h3>Why mix clouds?</h3><p>Use each where it fits</p><em>↻</em></div><div class="face back"><h3>Hybrid cloud</h3><ul><li>Two or more cloud types remain distinct but connected.</li><li>Supports application and data portability.</li><li>Sensitive data can stay private.</li><li>Less sensitive workloads can use public-cloud savings.</li></ul></div></div></button>
+  </div>
+</section>
+
+<section class="zone alt" id="actors">
+  <div class="zone-head"><div><span class="zone-no">04</span><div class="eyebrow">NIST REFERENCE ARCHITECTURE</div><h2>Five actors make the cloud ecosystem work.</h2></div><p>The reference architecture explains <b>what roles exist</b>, not how one specific cloud must be engineered.</p></div>
+  <div class="actor-map">
+    <div class="actor customer"><span>CSC</span><b>Customer</b><small>Uses cloud services</small></div>
+    <div class="connector c1">↔</div>
+    <div class="actor provider"><span>CSP</span><b>Provider</b><small>Makes services available</small></div>
+    <div class="connector c2">↔</div>
+    <div class="actor broker"><span>BROKER</span><b>Broker</b><small>Manages use and negotiation</small></div>
+    <div class="actor auditor"><span>AUDITOR</span><b>Auditor</b><small>Independent assessment</small></div>
+    <div class="actor carrier"><span>CARRIER</span><b>Carrier</b><small>Connectivity and transport</small></div>
+  </div>
+  <div class="game">
+    <div class="game-head"><div><span>GAME 3</span><h3>Who am I?</h3></div><p>Match the role to the actor.</p></div>
+    <div class="game-body"><div class="scenario" id="actorScenario"></div><div class="choices" id="actorChoices"></div><div class="feedback" id="actorFeedback"></div></div>
+  </div>
+  <div class="flip-grid">
+    <button class="flip"><div class="flip-inner"><div class="face front"><small>REFERENCE MODEL</small><h3>Why use it?</h3><p>A common vocabulary</p><em>↻</em></div><div class="face back"><h3>Reference architecture</h3><ul><li>High-level conceptual model.</li><li>Focuses on what cloud services provide.</li><li>Does not prescribe one implementation.</li><li>Helps describe and discuss system-specific architectures consistently.</li></ul></div></div></button>
+    <button class="flip"><div class="flip-inner"><div class="face front"><small>NETWORK VIEW</small><h3>Three networks</h3><p>Provider, enterprise, carrier</p><em>↻</em></div><div class="face back"><h3>Network concerns</h3><ul><li>Provider data centre: VM placement, movement, load balancing and availability.</li><li>Enterprise: LANs, servers, PCs, mobile devices and internal security.</li><li>Carrier: virtual networks, SLAs and security guarantees across shared transport.</li></ul></div></div></button>
+    <button class="flip"><div class="flip-inner"><div class="face front"><small>RESPONSIBILITY</small><h3>Cloud ≠ no accountability</h3><p>Control changes; accountability stays.</p><em>↻</em></div><div class="face back"><h3>Security accountability</h3><ul><li>Cloud customers give up some direct control.</li><li>They still remain accountable for security and privacy policy.</li><li>Contracts, SLAs and architecture choices matter.</li><li>Risk must be understood before migration.</li></ul></div></div></button>
+  </div>
+</section>
+
+<section class="zone" id="threats">
+  <div class="zone-head"><div><span class="zone-no">05</span><div class="eyebrow">CLOUD THREATS + STRIDE</div><h2>The cloud moves risk — it does not remove it.</h2></div><p>The Cloud Security Alliance threat list highlights identity, APIs, shared technology, insiders, data loss, APTs and more. STRIDE gives us a simple way to classify deliberate attacks.</p></div>
+  <div class="stride-strip">
+    <div><b>S</b><span>Spoofing</span><small>Authentication</small></div><div><b>T</b><span>Tampering</span><small>Integrity</small></div><div><b>R</b><span>Repudiation</span><small>Non-repudiation</small></div><div><b>I</b><span>Information disclosure</span><small>Confidentiality</small></div><div><b>D</b><span>Denial of service</span><small>Availability</small></div><div><b>E</b><span>Elevation of privilege</span><small>Authorization</small></div>
+  </div>
+  <div class="game danger">
+    <div class="game-head"><div><span>GAME 4</span><h3>STRIDE Sorter</h3></div><p>Classify the attack description.</p></div>
+    <div class="game-body"><div class="scenario" id="strideScenario"></div><div class="choices" id="strideChoices"></div><div class="feedback" id="strideFeedback"></div></div>
+  </div>
+  <h3 class="minihead">12 cloud-specific threats</h3>
+  <div class="threat-grid">
+    <article><span>01</span><b>Data breaches</b></article><article><span>02</span><b>Weak IAM</b></article><article><span>03</span><b>Insecure APIs</b></article><article><span>04</span><b>System vulnerabilities</b></article><article><span>05</span><b>Account hijacking</b></article><article><span>06</span><b>Malicious insiders</b></article><article><span>07</span><b>APTs</b></article><article><span>08</span><b>Data loss</b></article><article><span>09</span><b>Insufficient due diligence</b></article><article><span>10</span><b>Abuse of cloud services</b></article><article><span>11</span><b>Denial of service</b></article><article><span>12</span><b>Shared technology vulnerabilities</b></article>
+  </div>
+  <div class="flip-grid four">
+    <button class="flip"><div class="flip-inner"><div class="face front"><small>DATA</small><h3>Data breach</h3><p>How do we reduce impact?</p><em>↻</em></div><div class="face back"><h3>Data breach controls</h3><ul><li>Protect data at rest, in transit and in use.</li><li>Use access control.</li><li>Encrypt data at rest where appropriate.</li><li>Keep encryption keys secure and separate.</li></ul></div></div></button>
+    <button class="flip"><div class="flip-inner"><div class="face front"><small>IDENTITY</small><h3>Account hijacking</h3><p>Stolen credentials become cloud access.</p><em>↻</em></div><div class="face back"><h3>Account hijacking controls</h3><ul><li>Do not share credentials.</li><li>Use strong two-factor authentication.</li><li>Monitor proactively for unauthorised activity.</li><li>Understand CSP security policies and SLAs.</li></ul></div></div></button>
+    <button class="flip"><div class="flip-inner"><div class="face front"><small>API</small><h3>Insecure APIs</h3><p>Management interfaces are attack surfaces.</p><em>↻</em></div><div class="face back"><h3>API controls</h3><ul><li>Analyse the CSP interface security model.</li><li>Use strong authentication and access control.</li><li>Encrypt transmission.</li><li>Understand the API dependency chain.</li></ul></div></div></button>
+    <button class="flip"><div class="flip-inner"><div class="face front"><small>SHARED TECH</small><h3>Isolation matters</h3><p>Multi-tenancy depends on separation.</p><em>↻</em></div><div class="face back"><h3>Shared technology controls</h3><ul><li>Secure installation and configuration.</li><li>Monitor unauthorised change and activity.</li><li>Strong admin authentication and access control.</li><li>Patch SLAs, vulnerability scans and configuration audits.</li></ul></div></div></button>
+  </div>
+  <div class="threat-focus">
+    <div><h3>IAM</h3><p>Verify identity, provision and deprovision users, authenticate reliably and apply auditable access control.</p></div>
+    <div><h3>System vulnerabilities</h3><p>Continuous risk management, detection, patching and staff training.</p></div>
+    <div><h3>Malicious insiders</h3><p>Assess suppliers, define contractual HR requirements, demand transparency and agree breach notification processes.</p></div>
+    <div><h3>Data loss</h3><p>Use regular backups, redundancy and ideally geographic redundancy; consider cloud-to-premise copies.</p></div>
+  </div>
+  <div class="game">
+    <div class="game-head"><div><span>GAME 5</span><h3>Stop the cloud breach</h3></div><p>Choose the strongest first control for the scenario.</p></div>
+    <div class="game-body"><div class="scenario" id="breachScenario"></div><div class="choices" id="breachChoices"></div><div class="feedback" id="breachFeedback"></div></div>
+  </div>
+</section>
+
+<section class="zone alt" id="apt">
+  <div class="zone-head"><div><span class="zone-no">06</span><div class="eyebrow">APT + DUE DILIGENCE</div><h2>Some attackers want to stay, not smash and leave.</h2></div><p>An advanced persistent threat carefully selects targets, establishes persistence, moves through the environment, gathers data and may remain undetected for long periods.</p></div>
+  <div class="apt-line">
+    <article><span>1</span><b>Research</b></article><i>→</i><article><span>2</span><b>Initial attack</b></article><i>→</i><article><span>3</span><b>Foothold</b></article><i>→</i><article><span>4</span><b>Persistence</b></article><i>→</i><article><span>5</span><b>Recon</b></article><i>→</i><article><span>6</span><b>Lateral move</b></article><i>→</i><article><span>7</span><b>Privilege escalation</b></article><i>→</i><article><span>8</span><b>Gather + encrypt</b></article><i>→</i><article><span>9</span><b>Exfiltrate</b></article>
+  </div>
+  <div class="analogy"><b>Easy example:</b><span>An APT is like a burglar who secretly makes a copy of your house key and keeps returning for months instead of stealing one item and leaving.</span></div>
+  <div class="flip-grid four">
+    <button class="flip"><div class="flip-inner"><div class="face front"><small>APT</small><h3>Why threat intelligence?</h3><p>Know the attacker before damage.</p><em>↻</em></div><div class="face back"><h3>Threat intelligence value</h3><ul><li>Understand likely external threats.</li><li>Identify attacker techniques and targets.</li><li>Discover attacks earlier.</li><li>Speed remediation even when prevention fails.</li></ul></div></div></button>
+    <button class="flip"><div class="flip-inner"><div class="face front"><small>DUE DILIGENCE</small><h3>Verify infrastructure</h3><p>Can the provider support you?</p><em>↻</em></div><div class="face back"><h3>Verify infrastructure</h3><ul><li>Facilities, hardware and software matter.</li><li>Connectivity and external interfaces matter.</li><li>Look for enterprise-class equipment and documented integration.</li></ul></div></div></button>
+    <button class="flip"><div class="flip-inner"><div class="face front"><small>DUE DILIGENCE</small><h3>Verify certification</h3><p>Compliance + best practice</p><em>↻</em></div><div class="face back"><h3>Verify certification</h3><ul><li>Check relevant privacy and security regulations.</li><li>Look for standards and industry best practices.</li><li>Use NIST and Cloud Security Alliance guidance where relevant.</li></ul></div></div></button>
+    <button class="flip"><div class="flip-inner"><div class="face front"><small>DUE DILIGENCE</small><h3>Verify data protection</h3><p>Do not outsource thinking.</p><em>↻</em></div><div class="face back"><h3>Verify provider controls</h3><ul><li>Check the provider's own due diligence.</li><li>Confirm controls against breaches and data loss.</li><li>Review ordinary and catastrophic scenarios.</li><li>Scrutinise contractual terms before migration.</li></ul></div></div></button>
+  </div>
+</section>
+
+<section class="zone" id="secaas">
+  <div class="zone-head"><div><span class="zone-no">07</span><div class="eyebrow">SECURITY AS A SERVICE</div><h2>Security controls can be delivered from the cloud too.</h2></div><p>SecaaS provides security applications and services through the cloud, either protecting cloud-hosted workloads or extending protection back to on-premises systems.</p></div>
+  <div class="secaas-grid">
+    <article><b>IAM</b><span>Identity + access management</span></article><article><b>DLP</b><span>Data loss prevention</span></article><article><b>WEB</b><span>Web security</span></article><article><b>MAIL</b><span>Email security</span></article><article><b>ASSESS</b><span>Security assessments</span></article><article><b>IDS/IPS</b><span>Intrusion management</span></article><article><b>SIEM</b><span>Security event management</span></article><article><b>CRYPT</b><span>Encryption</span></article><article><b>BC/DR</b><span>Business continuity + disaster recovery</span></article><article><b>NET</b><span>Network security</span></article>
+  </div>
+  <div class="game">
+    <div class="game-head"><div><span>GAME 6</span><h3>SecaaS Match</h3></div><p>Which security service fits the need?</p></div>
+    <div class="game-body"><div class="scenario" id="secaasScenario"></div><div class="choices" id="secaasChoices"></div><div class="feedback" id="secaasFeedback"></div></div>
+  </div>
+  <div class="flip-grid">
+    <button class="flip"><div class="flip-inner"><div class="face front"><small>DLP</small><h3>Protect data everywhere</h3><p>At rest, in motion and in use</p><em>↻</em></div><div class="face back"><h3>Data loss prevention</h3><ul><li>Monitor and protect sensitive data.</li><li>Policies can control what functions are allowed.</li><li>Client and provider may both contribute controls.</li></ul></div></div></button>
+    <button class="flip"><div class="flip-inner"><div class="face front"><small>SIEM</small><h3>Bring events together</h3><p>Aggregate + correlate</p><em>↻</em></div><div class="face back"><h3>SIEM</h3><ul><li>Collects logs and events from virtual and real networks, apps and systems.</li><li>Correlates and analyses activity.</li><li>Provides real-time reporting and alerting.</li><li>Can combine cloud and enterprise sources.</li></ul></div></div></button>
+    <button class="flip"><div class="flip-inner"><div class="face front"><small>BC/DR</small><h3>Stay operational</h3><p>Resilience during failure</p><em>↻</em></div><div class="face back"><h3>Business continuity + disaster recovery</h3><ul><li>Backups in multiple locations.</li><li>Reliable failover and disaster recovery.</li><li>Redundant hardware and functions.</li><li>Geographically distributed data centres and network survivability.</li></ul></div></div></button>
+  </div>
+</section>
+
+<section class="zone alt" id="openstack">
+  <div class="zone-head"><div><span class="zone-no">08</span><div class="eyebrow">OPENSTACK + KEYSTONE</div><h2>Cloud identity becomes infrastructure.</h2></div><p>OpenStack is an open-source cloud operating system for scalable multi-tenant IaaS. Keystone provides the shared security services needed to authenticate and control access.</p></div>
+  <div class="keystone-lab">
+    <div class="keystone-panel"><span>KEYSTONE</span><h3>Four core services</h3><div class="keystone-services"><button data-key="identity">Identity</button><button data-key="token">Token</button><button data-key="catalog">Service catalog</button><button data-key="policy">Policies</button></div><div class="key-readout" id="keyReadout">Choose a Keystone service.</div></div>
+    <div class="vm-flow"><div><span>1</span><b>User authenticates</b></div><i>→</i><div><span>2</span><b>Keystone issues token</b></div><i>→</i><div><span>3</span><b>Client finds endpoint</b></div><i>→</i><div><span>4</span><b>Policy allows/denies action</b></div><i>→</i><div><span>5</span><b>Nova launches VM</b></div></div>
+  </div>
+  <div class="openstack-grid">
+    <article><span>NOVA</span><b>Compute</b><p>Spawns, schedules and decommissions virtual machines.</p></article>
+    <article><span>GLANCE</span><b>Images</b><p>Discovers, registers and retrieves VM disk images.</p></article>
+    <article><span>SWIFT</span><b>Object storage</b><p>Distributed, scalable storage for images, backups, archives and static data.</p></article>
+    <article><span>KEYSTONE</span><b>Identity + policy</b><p>Authentication, tokens, service catalogue and access policies.</p></article>
+  </div>
+  <div class="game">
+    <div class="game-head"><div><span>GAME 7</span><h3>Launch the VM</h3></div><p>Put the security flow in the correct order.</p></div>
+    <div class="game-body"><div class="order-board" id="vmOrder"></div><div class="choices"><button id="checkVm">Check order</button><button id="shuffleVm">Shuffle</button></div><div class="feedback" id="vmFeedback"></div></div>
+  </div>
+</section>
+
+<section class="zone final" id="final">
+  <div class="zone-head"><div><span class="zone-no">09</span><div class="eyebrow">FINAL MISSION</div><h2>Can you secure the cloud?</h2></div><p>Eight questions across cloud characteristics, service models, deployment, actors, STRIDE, cloud threats, SecaaS and Keystone.</p></div>
+  <div id="finalQuiz" class="final-grid"></div>
+</section>
+</main>
+
+<footer><b>COMP6013 · WEEK 10</b><span>Cloud Security Atlas</span></footer>
+<script src="app.js"></script>
+</body>
+</html>
